@@ -1,7 +1,4 @@
-valor;
-i;
-contador45;
-contador_45;
-45;
-45demo;
-casa;
+;
+00110011;
+1001;
+001;

@@ -4,20 +4,12 @@ import java.util.ArrayList;
 public class tabla {
 	
 	private int tabla[][];
-	private int indexLetra;
-	private int indexDigito;
+	private String cabezera[];
 	
 	public tabla(ArrayList<String> lineas) {
 		ArrayList<Integer> dimensiones = convertir(lineas.get(0));
 		this.tabla = new int[dimensiones.get(0)][dimensiones.get(1)];
-		String[] head = lineas.get(1).split(" ");
-		for (int i=0;i<head.length;i++) {
-			if (head[i].equals("L")) {
-				this.indexLetra = i;
-			}else if(head[i].equals("D")) {
-				this.indexDigito = i;
-			}
-		}
+		this.cabezera = lineas.get(1).split(" ");
 		for (int i=0;i<dimensiones.get(0);i++) {
 			ArrayList<Integer> aux = convertir(lineas.get(i+2));
 			for (int j=0;j<dimensiones.get(1);j++) {
@@ -30,14 +22,14 @@ public class tabla {
 		return this.tabla;
 	}
 	
-	public int getIndexLetra() {
-		return this.indexLetra;
+	public String getCabezera(int index) {
+		return this.cabezera[index];
 	}
 	
-	public int getIndexDigito() {
-		return this.indexDigito;
+	public String[] getCabezera() {
+		return this.cabezera;
 	}
-	
+
 	private ArrayList<Integer> convertir(String lineas) {
 		ArrayList<Integer> numeros = new ArrayList<Integer>();
 		for(String caracter : lineas.split(" ")) {

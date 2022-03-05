@@ -26,21 +26,28 @@ public class test {
 				try {
 					do {
 						simbolo = hr.siguienteCaracter();
-						if (Conjunto.letras(simbolo)) {
-							entrada = tb.getIndexLetra();
-						}else if (Conjunto.entero(simbolo)) {
-							entrada = tb.getIndexDigito();
-						}else if(simbolo == fc){
-							entrada = 2;
-							finCadena = true;
-						}else {
+						boolean valido = false;
+						for (int c=0;c<tb.getCabezera().length;c++) {
+							if (tb.getCabezera(c).equals("LE") && Conjunto.letras(simbolo)) {
+								entrada = c;
+								valido = true;
+							}else if (tb.getCabezera(c).equals("DI") && Conjunto.entero(simbolo)) {
+								entrada = c; 
+								valido = true;
+							}else if(tb.getCabezera(c).equals(simbolo+"")) {
+								entrada = c;
+								valido = true;
+							}else if(simbolo == fc) {
+								finCadena = true;
+								entrada = tb.getCabezera().length;
+								valido = true;
+							}
+						}
+						if (!valido) {
 							throw new ErrorLexico("Error, simbolo no reconocido: "+(linea+2));
 						}
 						estado = tabla[estado][entrada];
-						if (!finCadena && estado==1) {
-							throw new ErrorLexico("Error, simbolo no reconocido: "+(linea+2));
-						}
-					} while(!finCadena && estado!=1);
+					} while(!finCadena);
 				} catch (ErrorLexico ex) {
 					//ex.printStackTrace();
 				}
