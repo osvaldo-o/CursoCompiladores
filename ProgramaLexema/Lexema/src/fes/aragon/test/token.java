@@ -1,6 +1,6 @@
 package fes.aragon.test;
 
-public class token {
+public class Token {
 	private int tipoToken;
 	private int numeroColumna;
 	private int numeroLinea;
@@ -8,10 +8,10 @@ public class token {
 	private String token;
 	private String nombreVariable;
 	
-	public token() {
+	public Token() {
 	}
 
-	public token(int tipoToken, int numeroColumna, int numeroLinea, int posicionSimbolo, String token, String nombreVariable) {
+	public Token(int tipoToken, int numeroColumna, int numeroLinea, int posicionSimbolo, String token, String nombreVariable) {
 		this.tipoToken = tipoToken;
 		this.numeroColumna = numeroColumna;
 		this.numeroLinea = numeroLinea;
@@ -20,7 +20,7 @@ public class token {
 		this.nombreVariable = nombreVariable;
 	}
 	
-	public token(int tipoToken, int numeroColumna, int numeroLinea, int posicionSimbolo, String token) {
+	public Token(int tipoToken, int numeroColumna, int numeroLinea, int posicionSimbolo, String token) {
 		super();
 		this.tipoToken = tipoToken;
 		this.numeroColumna = numeroColumna;

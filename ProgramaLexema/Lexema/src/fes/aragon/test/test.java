@@ -2,14 +2,14 @@ package fes.aragon.test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import fes.aragon.test.token;
+import fes.aragon.test.Token;
 import fes.aragon.utilerias.Conjunto;
 import fes.aragon.utilerias.Herramientas;
 
 public class test {
 	private Herramientas hr = new Herramientas();
 	private int numeroLinea = 0;
-	private token token;
+	private Token token;
 	private boolean termino = false;
 	private String palabra = "";
 	private final int PALABRA_RESERVADA = 0;
@@ -35,10 +35,10 @@ public class test {
 	}
 	
 	private void estadoFinalQ2() {
-		if (palabrasReservadas.esPalabraReservada(palabra)) {
-			token = new token(PALABRA_RESERVADA,hr.getIndicePalabra(),numeroLinea,-1,"PALABRA RESERVADA");
+		if (PalabrasReservadas.esPalabraReservada(palabra)) {
+			token = new Token(PALABRA_RESERVADA,hr.getIndicePalabra(),numeroLinea,-1,"PALABRA RESERVADA");
 		}else {
-			token = new token(INDENTIFICADOR,hr.getIndicePalabra(),numeroLinea,0,"ASIGNACION", palabra);
+			token = new Token(INDENTIFICADOR,hr.getIndicePalabra(),numeroLinea,0,"ASIGNACION", palabra);
 		}
 	}
 	

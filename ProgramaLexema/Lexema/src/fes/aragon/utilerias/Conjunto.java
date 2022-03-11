@@ -18,4 +18,8 @@ public class Conjunto {
 		}
 		return valido;
 	}
+	
+	public static boolean finCadena(char caracter) {
+		return caracter == 59;
+	}
 }

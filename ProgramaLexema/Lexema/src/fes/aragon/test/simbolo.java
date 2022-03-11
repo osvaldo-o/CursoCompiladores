@@ -1,6 +1,6 @@
 package fes.aragon.test;
 
-public class simbolo {
+public class Simbolo {
 	private int tipoSimbolo;
 	private int numeroColumna;
 	private int numeroLinea;
@@ -9,10 +9,10 @@ public class simbolo {
 	private boolean declarado;
 	private boolean inicializado;
 	
-	public simbolo() {
+	public Simbolo() {
 	}
 	
-	public simbolo(int tipoSimbolo, int numeroColumna, int numeroLinea, String simbolo, String tipo, boolean declarado, boolean inicializado) {
+	public Simbolo(int tipoSimbolo, int numeroColumna, int numeroLinea, String simbolo, String tipo, boolean declarado, boolean inicializado) {
 		this.tipoSimbolo = tipoSimbolo;
 		this.numeroColumna = numeroColumna;
 		this.numeroLinea = numeroLinea;
