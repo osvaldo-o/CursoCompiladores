@@ -81,11 +81,53 @@ public class Lexico {
 			case 2:
 				this.estado = 0;
 				tokenEncontrado = true;
-				t = identificadorAsignarId(palabra);
+				t = identificadorAsignarId(palabra); // Para palbras reservadas o asignaciones
+				break;
+			case 3:
+				do {
+					if (Conjunto.entero(simbolo)) {
+						this.palabra+=simbolo;
+					}
+					simbolo = hr.siguienteCaracter();
+				}while (Conjunto.entero(simbolo));
+				if (simbolo == '.') {
+					this.estado = 5;
+				}else {
+					this.estado = 4;
+				}
+				break;
+			case 4:
+				this.estado = 0;
+				tokenEncontrado = true;
+				s = new Simbolo(3,((hr.getIndicePalabra()-this.palabra.length())+1), numeroLinea+1,palabra,"",false,false);
+				simbolos.add(s);
+				t = new Token(3,((hr.getIndicePalabra()-this.palabra.length())+1), numeroLinea+1,this.indiceSimbolos++, palabra, "numero");
+				tokenReconocidos += t.getToken()+"\n";
+				break;
+			case 5:
+				palabra += simbolo;
+				simbolo = hr.siguienteCaracter();
+				if (Conjunto.entero(simbolo)) {
+					palabra += simbolo;
+					this.estado = 6;
+				}else {
+					this.estado = 0;
+					numeroErrores++;
+					ErrorLexico error = new ErrorLexico("Dato numerico mal estructurado",hr.getIndicePalabra()+1,numeroLinea+1);
+					this.errores.add(error);
+				}
+				break;
+			case 7:
+				this.estado = 0;
+				tokenEncontrado = true;
+				s = new Simbolo(3,((hr.getIndicePalabra()-this.palabra.length())+1),numeroLinea+1,palabra,"",false,false);
+				simbolos.add(s);
+				t = new Token(3,((hr.getIndicePalabra()-this.palabra.length())+1),numeroLinea+1,this.indiceSimbolos++,palabra,"numero");
+				tokenReconocidos += t.getToken()+"\n";
 				break;
 			}
 		}
-		
+		return t;
 	}
 	
 	private Token identificadorAsignarId(String palabra) {
