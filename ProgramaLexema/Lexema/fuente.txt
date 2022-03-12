@@ -1,3 +1,4 @@
-inicio
-casa
-fin
+inicio;
+osvaldo;
+saul;
+fin;

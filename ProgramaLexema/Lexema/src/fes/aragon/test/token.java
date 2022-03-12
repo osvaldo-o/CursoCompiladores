@@ -11,22 +11,13 @@ public class Token {
 	public Token() {
 	}
 
-	public Token(int tipoToken, int numeroColumna, int numeroLinea, int posicionSimbolo, String token, String nombreVariable) {
+	public Token(int tipoToken, int numeroColumna, int numeroLinea, int posicionSimbolo, String nombreVariable, String token) {
 		this.tipoToken = tipoToken;
 		this.numeroColumna = numeroColumna;
 		this.numeroLinea = numeroLinea;
 		this.posicionSimbolo = posicionSimbolo;
 		this.token = token;
 		this.nombreVariable = nombreVariable;
-	}
-	
-	public Token(int tipoToken, int numeroColumna, int numeroLinea, int posicionSimbolo, String token) {
-		super();
-		this.tipoToken = tipoToken;
-		this.numeroColumna = numeroColumna;
-		this.numeroLinea = numeroLinea;
-		this.posicionSimbolo = posicionSimbolo;
-		this.token = token;
 	}
 
 	public int getTipoToken() {
@@ -75,6 +66,13 @@ public class Token {
 
 	public void setNombreVariable(String nombreVariable) {
 		this.nombreVariable = nombreVariable;
+	}
+
+	@Override
+	public String toString() {
+		return "Token [tipoToken=" + tipoToken + ", numeroColumna=" + numeroColumna + ", numeroLinea=" + numeroLinea
+				+ ", posicionSimbolo=" + posicionSimbolo + ", token=" + token + ", nombreVariable=" + nombreVariable
+				+ "]";
 	}
 	
 	

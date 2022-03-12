@@ -46,11 +46,12 @@ public class Lexico {
 		boolean tokenEncontrado = false;
 		Token t = null;
 		Simbolo s = null;
-		this.palabra = "";
+		palabra = "";
 		while (numeroLinea < this.codigo.size() && numeroErrores < 5 && tokenEncontrado == false) {
 			switch (this.estado) {
 			case 0:
 				if (simbolo == ' ' || simbolo == '\t' || simbolo == '\n') {
+					System.out.println("?");
 					simbolo = hr.siguienteCaracter();
 					while (simbolo == ' ') {
 						simbolo = hr.siguienteCaracter();
@@ -67,6 +68,8 @@ public class Lexico {
 					this.estado = 1;
 				}else if (Conjunto.entero(simbolo)) {
 					this.estado = 3;
+				}else if(simbolo == ';') {
+					this.estado = 8;
 				}
 				break;
 			case 1:
@@ -120,10 +123,23 @@ public class Lexico {
 			case 7:
 				this.estado = 0;
 				tokenEncontrado = true;
-				s = new Simbolo(3,((hr.getIndicePalabra()-this.palabra.length())+1),numeroLinea+1,palabra,"",false,false);
+				s = new Simbolo(3,hr.getIndicePalabra()+1,numeroLinea+1,palabra,"",false,false);
 				simbolos.add(s);
-				t = new Token(3,((hr.getIndicePalabra()-this.palabra.length())+1),numeroLinea+1,this.indiceSimbolos++,palabra,"numero");
+				t = new Token(3,hr.getIndicePalabra()+1,numeroLinea+1,this.indiceSimbolos++,palabra,"NUMERO");
 				tokenReconocidos += t.getToken()+"\n";
+				break;
+			case 8:
+				this.estado = 0;
+				tokenEncontrado = true;
+				palabra += simbolo;
+				// 4 fin de cadena
+				t = new Token(4,hr.getIndicePalabra()+1,numeroLinea+1,PALABRA_RESERVADA,palabra,"FIN DE INSTRICCION");
+				tokenReconocidos += t.getToken()+"\n";
+				numeroLinea++;
+				if (numeroLinea < this.codigo.size()) {
+					hr.setPalabra(codigo.get(this.numeroLinea));
+					simbolo = hr.siguienteCaracter();
+				}
 				break;
 			}
 		}
@@ -154,22 +170,40 @@ public class Lexico {
 					}
 				}
 				if (encontrado) {
-					t = new Token(1,((hr.getIndicePalabra()-this.palabra.length())+1),this.numeroLinea+1,this.PALABRA_NO_RESERVADA,this.palabra,"IDENTIFICADOR");
+					t = new Token(1,hr.getIndicePalabra()+1,this.numeroLinea+1,this.PALABRA_NO_RESERVADA,this.palabra,"IDENTIFICADOR");
 					this.tokenReconocidos += t.getToken() + "\n";
 				}else {
-					s = new Simbolo(1,((hr.getIndicePalabra()-this.palabra.length())+1),this.numeroLinea+1,this.palabra,"",false,false);
+					s = new Simbolo(1,hr.getIndicePalabra()+1,this.numeroLinea+1,this.palabra,"",false,false);
 					simbolos.add(s);
-					t = new Token(1,((hr.getIndicePalabra()-this.palabra.length())+1),this.numeroLinea+1,this.PALABRA_NO_RESERVADA,this.palabra,"IDENTIFICADOR");
+					t = new Token(1,hr.getIndicePalabra()+1,this.numeroLinea+1,this.PALABRA_NO_RESERVADA,this.palabra,"IDENTIFICADOR");
 					this.tokenReconocidos += t.getToken() + "\n";
 				}
 			}else {
 				numeroErrores++;
-				ErrorLexico error = new ErrorLexico("Identificador demasiado largo",((hr.getIndicePalabra()-this.palabra.length())+1),this.numeroLinea+1);
-				this.errores.add(error);
-				
+				ErrorLexico error = new ErrorLexico("Identificador demasiado largo",hr.getIndicePalabra()+1,this.numeroLinea+1);
+				this.errores.add(error);	
 			}
 		}
 		return t;
 	}
 	
+	public String getTokenReconocidos() {
+		return this.tokenReconocidos;
+	}
+
+	public int getNumeroLinea() {
+		return numeroLinea;
+	}
+
+	public void setNumeroLinea(int numeroLinea) {
+		this.numeroLinea = numeroLinea;
+	}
+
+	public ArrayList<String> getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(ArrayList<String> codigo) {
+		this.codigo = codigo;
+	}
 }
