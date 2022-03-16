@@ -27,19 +27,19 @@ public class test {
 					do {
 						simbolo = hr.siguienteCaracter();
 						boolean valido = false;
-						for (int c=0;c<tb.getCabezera().length;c++) {
-							if (tb.getCabezera(c).equals("LE") && Conjunto.letras(simbolo)) {
+						for (int c=0;c<tb.sizeAlfabeto();c++) {
+							if (tb.getAlfabeto(c).equals("LE") && Conjunto.letras(simbolo)) {
 								entrada = c;
 								valido = true;
-							}else if (tb.getCabezera(c).equals("DI") && Conjunto.entero(simbolo)) {
+							}else if (tb.getAlfabeto(c).equals("DI") && Conjunto.entero(simbolo)) {
 								entrada = c; 
 								valido = true;
-							}else if(tb.getCabezera(c).equals(simbolo+"")) {
+							}else if(tb.getAlfabeto(c).equals(simbolo+"")) {
 								entrada = c;
 								valido = true;
 							}else if(simbolo == fc) {
 								finCadena = true;
-								entrada = tb.getCabezera().length;
+								entrada = tb.sizeAlfabeto();
 								valido = true;
 							}
 						}
