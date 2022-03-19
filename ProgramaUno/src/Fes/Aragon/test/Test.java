@@ -1,13 +1,12 @@
-package Fes.Aragon.test;
+package fes.aragon.test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Fes.Aragon.utilerias.ErrorLexico;
-import Fes.Aragon.utilerias.Herramientas;
+import fes.aragon.utilerias.ErrorLexico;
+import fes.aragon.utilerias.Herramientas;
 
-public class AFD_V1 {
-
+public class Test {
 	public static void main(String[] args) {
 		int estado = 0;
 		int linea = 0;
@@ -87,6 +86,4 @@ public class AFD_V1 {
 			e.printStackTrace();
 		}	
 	}
-
-
 }

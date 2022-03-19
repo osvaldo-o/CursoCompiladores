@@ -1,12 +1,12 @@
 package fes.aragon.test;
 import java.util.ArrayList;
 
-public class tabla {
+public class Tabla {
 	
 	private int tabla[][];
 	private String alfabeto[];
 
-	public tabla(ArrayList<String> lineas) {
+	public Tabla(ArrayList<String> lineas) {
 		int filas = Integer.parseInt(lineas.get(0).split(" ")[0]);
 		int columnas = Integer.parseInt(lineas.get(0).split(" ")[1]);
 		this.tabla = new int[filas][columnas];

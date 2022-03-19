@@ -7,7 +7,7 @@ import fes.aragon.utilerias.Conjunto;
 import fes.aragon.utilerias.ErrorLexico;
 import fes.aragon.utilerias.Herramientas;
 
-public class test {
+public class Test {
 	public static void main(String[] args) {
 		int estado = 0;
 		int linea = 0;
@@ -18,7 +18,7 @@ public class test {
 		char fc = ';';
 		boolean finCadena = false;
 		try {
-			tabla tb = new tabla(new Herramientas().lectura());
+			Tabla tb = new Tabla(new Herramientas().lectura());
 			lineas = hr.lectura();
 			int[][] tabla = tb.getTabla();
 			for (int i = 0; i < lineas.size(); i++) {
