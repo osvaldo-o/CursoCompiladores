@@ -6,8 +6,6 @@ public class ErrorLexico extends Exception{
 	public ErrorLexico(String msg) {
 		super(msg);
 		
-	 
-		
 	}
 	
 	

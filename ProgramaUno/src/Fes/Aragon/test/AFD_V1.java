@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import Fes.Aragon.utilerias.ErrorLexico;
 import Fes.Aragon.utilerias.Herramientas;
 
-public class AFDV1 {
+public class AFD_V1 {
 
 	public static void main(String[] args) {
 		int estado = 0;
