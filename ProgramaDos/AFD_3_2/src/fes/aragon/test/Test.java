@@ -108,7 +108,6 @@ public class Test {
 			return estado_C();
 		case';':
 			return aceptado;
-			
 		default:
 			return error;			
 		}

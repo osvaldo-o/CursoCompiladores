@@ -53,9 +53,9 @@ public class Test {
 				}
 				linea = i;
 				if (finCadena && estado == 1) {
-					System.out.println("Palabra valida " + (linea + 1));
+					System.out.println("Palabra valida " +"(linea: "+(linea + 1)+")");
 				} else {
-					System.out.println("Palabra no valida " + (linea + 1));
+					System.out.println("Palabra no valida " +"(linea: "+(linea + 1)+")");
 				}
 
 				estado = 0;

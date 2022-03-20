@@ -16,11 +16,10 @@ public class Test {
 		try {
 			lineas = hr.lectura();	
 			for(int i=0;i<lineas.size();i++) {
-				//System.out.println(lineas.get(i));
 				hr.setPalabra(lineas.get(i));
 				simbolo = hr.siguienteCaracter();
 				while(simbolo != ';') {
-					switch(estado) {
+					switch(estado) { 
 					case 0:
 						if(simbolo == 'a') {
 							estado = 1;

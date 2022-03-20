@@ -36,10 +36,7 @@ public class Test {
 							throw new ErrorLexico("Error, símbolo no reconocido: "+(linea+2));
 						}
 						estado=tabla[estado][entrada];
-						if(!finDeCadena && estado==0) {
-							throw new ErrorLexico("Error, símbolo no reconocido: "+(linea+2));
-						}
-					} while(!finDeCadena && (estado!=1||estado!=2));
+					} while(!finDeCadena);
 				} catch (ErrorLexico ex) {
 					//ex.printStackTrace();
 				}  
