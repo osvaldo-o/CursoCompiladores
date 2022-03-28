@@ -23,6 +23,7 @@ public class Test {
 			int[][] tabla = tb.getTabla();
 			for (int i = 0; i < lineas.size(); i++) {
 				hr.setPalabra(lineas.get(i));
+				linea = i;
 				try {
 					do {
 						simbolo = hr.siguienteCaracter();
@@ -44,14 +45,13 @@ public class Test {
 							}
 						}
 						if (!valido) {
-							throw new ErrorLexico("Error, simbolo no reconocido: "+(linea+2));
+							throw new ErrorLexico("Error, simbolo no reconocido: "+(linea+1));
 						}
 						estado = tabla[estado][entrada];
 					} while(!finCadena);
 				} catch (ErrorLexico ex) {
-					//ex.printStackTrace();
+					ex.printStackTrace();
 				}
-				linea = i;
 				if (finCadena && estado == 1) {
 					System.out.println("Palabra valida " +"(linea: "+(linea + 1)+")");
 				} else {

@@ -1,0 +1,6 @@
++equis;
++equis and ye;
++equis and ye or 85*zeta;
++equis -ye;
++equis and (-ye);
++equis and (-ye or 85);

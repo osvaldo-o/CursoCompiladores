@@ -21,6 +21,7 @@ public class Test {
 		try {
 			lineas = hr.lectura();
 			for (int i = 0; i < lineas.size(); i++) {
+				linea = i;
 				hr.setPalabra(lineas.get(i));
 				try {
 					do {
@@ -33,14 +34,13 @@ public class Test {
 							entrada = 2;
 							finDeCadena=true;
 						} else {
-							throw new ErrorLexico("Error, símbolo no reconocido: "+(linea+2));
+							throw new ErrorLexico("Error, símbolo no reconocido: "+(linea+1));
 						}
 						estado=tabla[estado][entrada];
 					} while(!finDeCadena);
 				} catch (ErrorLexico ex) {
-					//ex.printStackTrace();
+					ex.printStackTrace();
 				}  
-				linea = i;
 				if (finDeCadena && estado == 1) {
 					System.out.println("Palabra válida " + (linea + 1));
 				} else {
