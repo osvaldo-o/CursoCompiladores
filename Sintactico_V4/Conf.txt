@@ -1,0 +1,82 @@
+package fes.aragon.codigo;
+%%
+%public
+%class Lexico
+%line
+%char
+%column
+%full
+%type Tokens
+%{
+private boolean hayToken=false;
+public boolean getHayToken(){
+	return this.hayToken;
+}
+%}
+%type Tokens
+%init{
+	/*Codigo que se ejecuta en el constructor de la clase*/
+%init}
+%eof{
+	/*Codigo que se ejecuta al terminar el analisis*/
+	this.hayToken=false;
+%eof}
+Espacio= " "
+PuntoComa=";"
+saltoLinea= \n|\r
+NUM = [0-9]+|[0-9]+.[0-9][0-9]
+%%
+{PuntoComa} {
+	Tokens tok=new Tokens(yytext(),Sym.PUNTOCOMA,yyline,yycolumn);
+	this.hayToken=true;
+	return tok;
+}
+"-" {
+	Tokens tok=new Tokens(yytext(),Sym.RESTA,yyline,yycolumn);
+	this.hayToken=true;
+	return tok;
+}
+"+" {
+	Tokens tok=new Tokens(yytext(),Sym.SUMA,yyline,yycolumn);
+	this.hayToken=true;
+	return tok;
+}
+"/" {
+	Tokens tok=new Tokens(yytext(),Sym.DIV,yyline,yycolumn);
+	this.hayToken=true;
+	return tok;
+}
+"*" {
+	Tokens tok=new Tokens(yytext(),Sym.POR,yyline,yycolumn);
+	this.hayToken=true;
+	return tok;
+}
+")" {
+	Tokens tok=new Tokens(yytext(),Sym.PARC,yyline,yycolumn);
+	this.hayToken=true;
+	return tok;
+}
+"(" {
+	Tokens tok=new Tokens(yytext(),Sym.PARA,yyline,yycolumn);
+	this.hayToken=true;
+	return tok;
+}
+{NUM} {
+	Tokens tok=new Tokens(yytext(),Sym.NUM,yyline,yycolumn);
+	this.hayToken=true;
+	return tok;
+}
+{saltoLinea} {
+	//Tokens tok=new Tokens(yytext(),Sym.SALTOLINEA,yyline,yycolumn);
+	//this.hayToken=true;
+	//return tok;
+}
+{Espacio} {
+	
+}
+. {
+        String errLex = "Error léxico : '"+yytext()+"' en la línea: "
+		+(yyline+1)+" y columna: "+(yycolumn+1);
+        System.out.println(errLex);
+	this.hayToken=false;
+}
