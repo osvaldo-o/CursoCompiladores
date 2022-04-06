@@ -35,15 +35,15 @@ public class Inicio {
 			do {
 				entrada = ap.tokens.getToken();
 				if (ap.pilaSimbolos.peek().equals(entrada)) {
-					System.out.println("Pila de Simbolos: "+ap.pilaSimbolos.toString()+","+"Entrada: "+entrada+","+"Regla: consumir("+ap.pilaSimbolos.pop()+")");
+					System.out.println("Pila: "+ap.pilaSimbolos.toString()+","+"Entrada: "+entrada+","+"Regla: consumir("+ap.pilaSimbolos.pop()+")");
 					if(ap.tokens.getLexema() == Sym.PUNTOCOMA) {
 						System.out.println("Aceptada");
 						ap.reset();
 					}
 					ap.siguienteToken();
-				}else if(ap.indexFila(ap.pilaSimbolos.peek().toString()) != -1 && ap.indexColumna(entrada+"") != -1){
+				}else if(ap.indexFila(ap.pilaSimbolos.peek()) != -1){
 					info = info+("Pila de Simbolos: "+ap.pilaSimbolos.toString()+","+"Entrada: "+entrada+",");
-					reglas = tabla[ap.indexFila(ap.pilaSimbolos.pop().toString())][ap.indexColumna(entrada + "")];
+					reglas = tabla[ap.indexFila(ap.pilaSimbolos.pop().toString())][ap.tokens.getLexema()];
 					info = info+("Regla: "+reglas);
 					for (String regla : ap.invertir(reglas).split(" ")) {
 						ap.pilaSimbolos.push(regla);
@@ -73,17 +73,7 @@ public class Inicio {
 		}
 
 	}
-
-	private int indexColumna(String dato) throws IOException{
-		String[] columnas = { "a", "b", "c", "d" };
-		for (int i = 0; i < columnas.length; i++) {
-			if (dato.equals(columnas[i])) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
+	
 	private int indexFila(String dato) throws IOException {
 		String[] filas = { "S", "A", "B", "C" };
 		for (int i = 0; i < filas.length; i++) {
