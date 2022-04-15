@@ -19,23 +19,23 @@ public class Inicio2 {
 			buf = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/archivo.txt"));
 			ap.analizador = new Lexico(buf);
 			ap.siguienteToken();
-			ASDP lexico = new ASDP();
+			ASDP sintactico = new ASDP();
 			do {
-				lexico.setEntrada(ap.tokens.getToken());
-				if (lexico.sonTerminales()) {
-					lexico.consumir();
+				sintactico.setEntrada(ap.tokens.getToken());
+				if (sintactico.sonTerminales()) {
+					sintactico.consumir();
 					if (ap.tokens.getLexema() == Sym.PUNTOCOMA) {
 						System.out.println("Aceptada");
-						lexico = new ASDP();
+						sintactico = new ASDP();
 					}
 					ap.siguienteToken();
-				}else if (lexico.puedeRemplazar()){
-					lexico.remplazar(ap.tokens.getLexema());
+				}else if (sintactico.puedeRemplazar()){
+					sintactico.remplazar(ap.tokens.getLexema());
 				}else {
-					System.out.println("Error, rechazado");
+					System.out.println("Error, rechazada");
 					ap.errorSintactico();
 					ap.siguienteToken();
-					lexico = new ASDP();
+					sintactico = new ASDP();
 				}
 			} while (ap.tokens.getLexema() != Sym.EOF);
 		} catch (Exception e) {

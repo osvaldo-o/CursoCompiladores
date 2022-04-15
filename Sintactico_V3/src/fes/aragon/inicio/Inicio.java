@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fes.aragon.inicio;
 
 import fes.aragon.codigo.ErrorSintactico;
@@ -13,10 +8,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- *
- * @author MASH
- */
 public class Inicio {
     private Tokens tokens = null;
     private Lexico analizador = null;
@@ -35,8 +26,6 @@ public class Inicio {
             		ap.secuencia();
             	}
         		catch (ErrorSintactico e) {
-        			// TODO Auto-generated catch block
-        			//e.printStackTrace();
         			System.out.println(e.getMessage());
         			ap.siguienteToken();
         		}

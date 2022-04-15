@@ -37,12 +37,8 @@ public class Inicio {
             		ap.S();
             	}
         		catch (ErrorSintactico e) {
-        			// TODO Auto-generated catch block
-        			//e.printStackTrace();
         			System.out.println(e.getMessage());
-        			do {
-            			ap.siguienteToken();
-        			}while(ap.tokens.getLexema()!= Sym.PUNTOCOMA && ap.tokens.getLexema()!= Sym.EOF);
+        			ap.errorSintactico();
         			ap.siguienteToken();
         		}
             }while(ap.tokens.getLexema()!= Sym.EOF);        
@@ -71,10 +67,10 @@ public class Inicio {
     			siguienteToken();
     			X();
     		}else {
-    			throw new ErrorSintactico("Error sintactico"+(tokens.getLinea()+1));
+    			throw new ErrorSintactico("Error sintactico "+(tokens.getLinea()+1));
     		}
     	}else {
-    		throw new ErrorSintactico("Error sintactico"+(tokens.getLinea()+1));
+    		throw new ErrorSintactico("Error sintactico "+(tokens.getLinea()+1));
     	}
     }
     private void X() throws ErrorSintactico{
@@ -98,4 +94,13 @@ public class Inicio {
         }
 
     }
+    
+    private void errorSintactico() {
+		do {
+			if (tokens.getLexema() != Sym.PUNTOCOMA) {
+				siguienteToken();
+			}
+		} while (tokens.getLexema() != Sym.PUNTOCOMA && tokens.getLexema() != Sym.EOF);
+
+	}
 }

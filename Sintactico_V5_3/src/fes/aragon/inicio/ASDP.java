@@ -16,6 +16,10 @@ public class ASDP {
 		entrada = "";
 	}
 	
+	public String toStringPila() {
+		return pila.toString();
+	}
+	
 	public void setEntrada(String entrada) {
 		this.entrada = entrada;
 	}
@@ -33,7 +37,7 @@ public class ASDP {
 	}
 	
 	public void remplazar(int entrada) {
-		String info = "Pila de Simbolos: "+pila.toString()+","+"Entrada: "+this.entrada+",";
+		String info = "Pila: "+pila.toString()+","+"Entrada: "+this.entrada+",";
 		reglas = tabla[indexFila(pila.pop())][entrada];
 		info = info+("Regla: "+reglas);
 		for (String regla : invertir(reglas).split(" ")) {
