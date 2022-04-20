@@ -1,0 +1,4 @@
+not false;
+a:=true and not(false or true);
+b:=false;
+c:=a and b;
