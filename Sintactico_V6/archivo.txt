@@ -1,0 +1,18 @@
+((false or not false) or true) and (true or not false);
+(true and (false));
+(true and false) or true;
+not not not not true;
+true and true and true;
+true and (false or true);
+true and (true and true) and true;
+not (not false and true) and true; 
+(true and false) or not not true;
+(true and false) or (true or false);
+(true and (true and false));
+((false or not false) or true) and (true or not false);
+false (not false and not false);
+not true and not false;
+false or not( true or false or true);
+true and false or(not true and false);
+false and (false or true);
+true and (true and true) and true;
