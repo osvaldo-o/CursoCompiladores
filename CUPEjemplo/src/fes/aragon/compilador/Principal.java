@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fes.aragon.compilador;
 
 import java.net.URISyntaxException;
 
 public class Principal {
+	private static parser inicio;
     private String ruta;
 
     public Principal() {
@@ -18,17 +14,19 @@ public class Principal {
                 .toURI().getPath();
         return ruta;
     }
+    
     public static void main(String[] args) {
+    	Principal app=new Principal();
+        inicio=new parser();
         try {
-        	TablaSimbolos tabla=new TablaSimbolos();
-            Principal app=new Principal();
-            parser inicio=new parser();
-            inicio.cargar(app.getRuta(), tabla);
-            //tabla.imprimir();
+            inicio.cargar(app.getRuta());
         } catch (URISyntaxException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         }catch (Exception ex) {
-            ex.printStackTrace();   
+            //ex.printStackTrace();   
         }
     }
+     public parser getInicio() {
+    	 return inicio;
+     }
 }

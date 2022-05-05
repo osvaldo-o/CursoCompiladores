@@ -1,0 +1,15 @@
+repetir 2 {
+ver fruta {
+repetir 2 {
+derecha
+derecha
+}
+}
+ver fruta {
+repetir 2 {
+derecha
+derecha
+}
+}
+}
+

@@ -2,12 +2,7 @@ package fes.aragon.compilador;
 import java_cup.runtime.Symbol;
 import java.io.Reader;
 %%
-%{
-	private TablaSimbolos tabla;
-	public Lexico(java.io.InputStream in, TablaSimbolos t){
-		this(in);
-		this.tabla = t;
-	}	
+%{	
 	public int getYyline() {
                 return yyline;
         }
@@ -42,9 +37,9 @@ INT={DIGITO}+
 "izquierda" {System.out.println("izquierda"); return new Symbol(sym.IZQ); }
 "derecha" {System.out.println("derecha"); return new Symbol(sym.DER); }
 "{" {System.out.println("para"); return new Symbol(sym.PARA); }
-"}" {System.out.println("parc"); return new Symbol(sym.PARC); }
+"}" { System.out.println("parc");return new Symbol(sym.PARC); }
 {INT}+ {
-		System.out.println("entero");
+		System.out.println(yytext()+"");
 		return new Symbol(sym.NUMERO, new Integer(yytext())); }
 [\t\r\f]  {}
 [\n] {}
