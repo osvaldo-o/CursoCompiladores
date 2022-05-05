@@ -1,0 +1,58 @@
+package fes.aragon.compilador;
+import java_cup.runtime.*;
+import java.io.*;
+import java.util.*;
+
+parser code{:
+	public static TablaSimbolos tabla = new TablaSimbolos();
+	public static Lexico lex;
+	public void syntax_error(Symbol st){
+		System.out.println("Error en la linea "+ lex.getYyline() +
+                    " columna: "+ lex.getYy_currentPos());
+	}
+	public void cargar(String archivo,TablaSimbolos t) throws Exception{	
+		lex=new Lexico(new FileInputStream(new File(archivo)),t);
+		new parser(lex).parse();
+	}
+:};
+
+terminal PUNTOYCOMA, REPETIR, VER, FRUTA;
+terminal COLOCA, MOVER, ARRIBA, ABAJO;
+terminal IZQ, DER, PARA, PARC;
+terminal Integer NUMERO;
+
+non terminal instruccion,instrucciones,instruccion_s;
+non terminal instrucciones_r,instruccion_r_s,instrucciones_v,instruccion_v_s;
+
+instrucciones ::= instrucciones instruccion_s
+			| instruccion_s
+			;
+			
+instruccion ::= COLOCA NUMERO NUMERO
+			| MOVER NUMERO
+			| ARRIBA
+			| ABAJO
+			| IZQ
+			| DER
+			;
+
+instruccion_s ::= instruccion PUNTOYCOMA
+			| REPETIR NUMERO PARA instrucciones_r PARC
+			| VER FRUTA PARA instrucciones_v PARC
+			;
+			
+instrucciones_r ::= instrucciones_r instruccion_r_s
+			| instruccion_r_s
+			;
+			
+instruccion_r_s ::= instruccion PUNTOYCOMA
+			| VER FRUTA PARA instrucciones_v PARC
+			;
+			
+instrucciones_v ::= instrucciones_v instruccion_v_s
+			| instruccion_v_s
+			;
+			
+instruccion_v_s ::= instruccion PUNTOYCOMA
+			| REPETIR NUMERO PARA instrucciones_v PARC
+			;		

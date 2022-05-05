@@ -1,0 +1,8 @@
+repetir 3 {
+	derecha;
+	mover 2;
+}
+repetir 2 {
+	izquierda;
+	mover 2;
+}
