@@ -1,3 +1,6 @@
-coloca 2 2
-izquierda 
-mover 3 
+coloca 4 4
+derecha
+izquierda
+mover 2
+arriba
+mover 4

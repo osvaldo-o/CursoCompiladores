@@ -15,14 +15,11 @@ import javafx.stage.Stage;
 public class Fondo extends ComponentesJuego {
 	private int yy = 0;
 	private int xx = 0;
-	private int randomX = (int)(Math.random()*10);
-	private int randomY = (int)(Math.random()*10);
 	private Image arribaImg;
 	private Image abajoImg;
 	private Image derechaImg;
 	private Image izquierdaImg;
 	private Image imagen;
-	private Image chile;
 	private Stage ventana;
 	private ArrayList<String> comandos = new ArrayList<>();
 	private int ancho = 40;
@@ -36,7 +33,6 @@ public class Fondo extends ComponentesJuego {
 	private boolean abajo=false;
 	private boolean derecha=false;
 	private boolean izquierda=false;
-	private boolean limite = false;
 
 	public Fondo(int x, int y, String imagen, int velocidad, Stage ventana) {
 		super(x, y, imagen, velocidad);
@@ -44,13 +40,13 @@ public class Fondo extends ComponentesJuego {
 		this.izquierdaImg=new Image("/fes/aragon/recursos/izquierda.png");
 		this.arribaImg=new Image("/fes/aragon/recursos/arriba.png");
 		this.abajoImg=new Image("/fes/aragon/recursos/abajo.png");
-		this.chile = new Image("/fes/aragon/recursos/chile.jpeg");
 		this.imagen = derechaImg;
 		this.ventana = ventana;
 	}
 
 	@Override
 	public void pintar(GraphicsContext graficos) {
+		// TODO Auto-generated method stub
 		this.graficos = graficos;
 		int xx = 50;
 		int yy = 50;
@@ -67,7 +63,7 @@ public class Fondo extends ComponentesJuego {
 		if (!comandos.isEmpty()) {
 			graficos.strokeText(comandos.get(indice), 100, 40);
 		}
-		graficos.drawImage(chile,(55+(ancho+10)*randomX),(55+(ancho+10)*randomY),40,40);
+
 		/*
 		 * graficos.drawImage(imagen, (x+(ancho+10)*2), y,ancho,alto);
 		 * graficos.strokeRect((x+(ancho+10)*2), y, ancho, alto);
@@ -82,6 +78,7 @@ public class Fondo extends ComponentesJuego {
 
 	@Override
 	public void teclado(KeyEvent evento, boolean presiona) {
+		// TODO Auto-generated method stub
 		if (presiona) {
 			switch (evento.getCode().toString()) {
 			case "A":
@@ -89,8 +86,10 @@ public class Fondo extends ComponentesJuego {
 					this.abrirArchivo();
 					graficos.clearRect(0, 0, 600, 600);
 				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
@@ -243,13 +242,6 @@ public class Fondo extends ComponentesJuego {
 				}
 				this.comando = "mover";
 				break;
-			case "ver":
-				if (xx != (55+(ancho+10)*randomX) && yy != (55+(ancho+10)*randomY)) {
-					while (!comandos.get(indice).equals("}")) {
-						indice++;
-						System.out.println("indice"+indice);
-					}
-				}
 			default:
 				break;
 			}
@@ -257,7 +249,7 @@ public class Fondo extends ComponentesJuego {
 		} else {
 			System.out.println("limite");
 			this.iniciar = false;
-			indice = 1;
+			this.indice = 1;
 		}
 
 	}
@@ -282,7 +274,6 @@ public class Fondo extends ComponentesJuego {
 		}
 
 	}
-	
 	private void iniciar() {
 		x=55;
 		y=55;
