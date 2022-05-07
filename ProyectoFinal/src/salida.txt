@@ -1,0 +1,8 @@
+coloca 5 5
+izquierda
+mover 1
+izquierda
+mover 1
+izquierda
+mover 1
+
