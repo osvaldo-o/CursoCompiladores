@@ -1,6 +1,79 @@
-coloca 4 4
+coloca 6 7
 ver fruta {
-abajo
+coloca 6 7
+ver fruta {
+coloca 6 7
+ver fruta {
+coloca 5 5
+derecha
 mover 2
+}
+coloca 6 7
+ver fruta {
+coloca 5 5
+derecha
+mover 2
+}
+}
+coloca 6 7
+ver fruta {
+coloca 6 7
+ver fruta {
+coloca 5 5
+derecha
+mover 2
+}
+coloca 6 7
+ver fruta {
+coloca 5 5
+derecha
+mover 2
+}
+}
+coloca 6 7
+ver fruta {
+coloca 6 7
+ver fruta {
+coloca 5 5
+derecha
+mover 2
+}
+coloca 6 7
+ver fruta {
+coloca 5 5
+derecha
+mover 2
+}
+}
+coloca 6 7
+ver fruta {
+coloca 6 7
+ver fruta {
+coloca 5 5
+derecha
+mover 2
+}
+coloca 6 7
+ver fruta {
+coloca 5 5
+derecha
+mover 2
+}
+}
+coloca 6 7
+ver fruta {
+coloca 6 7
+ver fruta {
+coloca 5 5
+derecha
+mover 2
+}
+coloca 6 7
+ver fruta {
+coloca 5 5
+derecha
+mover 2
+}
+}
 }
 

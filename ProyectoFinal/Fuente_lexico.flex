@@ -26,20 +26,19 @@ import java.io.Reader;
 DIGITO=[0-9]
 INT={DIGITO}+
 %%
-"repetir" {System.out.println("repetir"); return new Symbol(sym.REPETIR); }
-"ver" {System.out.println("ver"); return new Symbol(sym.VER); }
-"fruta" {System.out.println("fruta"); return new Symbol(sym.FRUTA); }
-"coloca" {System.out.println("coloca"); return new Symbol(sym.COLOCA); }
-";" {System.out.println("puntocoma"); return new Symbol(sym.PUNTOYCOMA); }
-"mover" {System.out.println("mover"); return new Symbol(sym.MOVER); }
-"arriba" {System.out.println("arriba"); return new Symbol(sym.ARRIBA); }
-"abajo" {System.out.println("abajo"); return new Symbol(sym.ABAJO); }
-"izquierda" {System.out.println("izquierda"); return new Symbol(sym.IZQ); }
-"derecha" {System.out.println("derecha"); return new Symbol(sym.DER); }
-"{" {System.out.println("para"); return new Symbol(sym.PARA); }
-"}" { System.out.println("parc");return new Symbol(sym.PARC); }
+"repetir" {return new Symbol(sym.REPETIR);}
+"ver" {return new Symbol(sym.VER);}
+"fruta" {return new Symbol(sym.FRUTA);}
+"coloca" {return new Symbol(sym.COLOCA);}
+";" {return new Symbol(sym.PUNTOYCOMA);}
+"mover" {return new Symbol(sym.MOVER);}
+"arriba" {return new Symbol(sym.ARRIBA);}
+"abajo" {return new Symbol(sym.ABAJO);}
+"izquierda" {return new Symbol(sym.IZQ);}
+"derecha" {return new Symbol(sym.DER);}
+"{" {return new Symbol(sym.PARA);}
+"}" {return new Symbol(sym.PARC);}
 {INT}+ {
-		System.out.println(yytext()+"");
 		return new Symbol(sym.NUMERO, new Integer(yytext())); }
 [\t\r\f]  {}
 [\n] {}

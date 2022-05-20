@@ -14,14 +14,17 @@ action code{:
 :};
 parser code{:
 	public static Lexico lex;
-	public static boolean error;
+	public static String textError;
+	public static boolean valido = true;
+	
 	public void syntax_error(Symbol st){
-		System.out.println("Error en la linea "+ lex.getYyline() +
-                    " columna: "+ lex.getYy_currentPos());
-        error = true;
+        textError = "Error en la linea "+ lex.getYyline() +
+                    " columna: "+ lex.getYy_currentPos();
+        valido = false;
 	}
-	public void cargar(String archivo) throws Exception{	
-		lex=new Lexico(new FileInputStream(new File(archivo)));
+	
+	public void cargar(InputStream archivo) throws Exception{	
+		lex=new Lexico(archivo);
 		new parser(lex).parse();
 	}
 :};
@@ -36,6 +39,7 @@ non terminal instrucciones_r,instruccion_r_s,instrucciones_v,instruccion_v_s;
 
 instrucciones ::= instrucciones:ins_1 instruccion_s:ins_2 {:RESULT=new String(ins_1+"\n"+ins_2);:} 
 			| instruccion_s:ins {:RESULT=ins;:}
+			| error {:;:}
 			;
 			
 instruccion ::= COLOCA NUMERO:x NUMERO:y {:RESULT="coloca "+x+" "+y;:}
@@ -49,11 +53,9 @@ instruccion ::= COLOCA NUMERO:x NUMERO:y {:RESULT="coloca "+x+" "+y;:}
 instruccion_s ::= instruccion:ins PUNTOYCOMA {:almacenar(ins+"",false);:}
 			| REPETIR NUMERO:n PARA instrucciones_r:ins PARC
 			{:
-				//almacenar("repetir "+n+" {",false);
 				for (int i=0;i<n;i++){
 					almacenar(ins+"",false);
 				}
-				//almacenar("}",false);
 			:} 
 			| VER FRUTA PARA instrucciones_v:ins PARC
 			{:

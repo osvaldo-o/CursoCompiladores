@@ -25,7 +25,6 @@ public class Archivo {
 			salida.println(dato);
 			salida.close();
 			fw.close();
-			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
@@ -35,6 +34,10 @@ public class Archivo {
 				ex.printStackTrace();
 			}
 		}
+	}
+	
+	public File getArchivo() {
+		return archivo;
 	}
 
 }

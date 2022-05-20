@@ -1,0 +1,18 @@
+.root {
+	-fx-font: oblique 16px verdana;
+	-fx-background-image: url(/fes/aragon/recursos/colores.jpg);
+}
+
+Button {
+	-fx-font-size: 14px;
+	-fx-background-color: rgb(81, 242, 193);
+	-fx-background-radius: 20px;
+	-fx-border-radius: 20px;
+	-fx-border-width: 1.5px;
+	-fx-border-style: solid;
+	-fx-padding: 6px 16px;
+}
+
+Button:hover{
+	-fx-background-color: rgb(242, 101, 101);
+}

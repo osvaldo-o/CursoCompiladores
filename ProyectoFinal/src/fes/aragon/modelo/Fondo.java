@@ -1,15 +1,18 @@
 package fes.aragon.modelo;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import fes.aragon.compilador.Principal;
+import fes.aragon.compilador.parser;
 import fes.aragon.extras.EfectosMusica;
+import fes.aragon.inicio.Main;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
@@ -26,7 +29,7 @@ public class Fondo extends ComponentesJuego {
 	private Image derechaImg;
 	private Image izquierdaImg;
 	private Image imagen;
-	private Image chile;
+	private Image manzana;
 	private Stage ventana;
 	private ArrayList<String> comandos = new ArrayList<>();
 	private int ancho = 40;
@@ -40,9 +43,9 @@ public class Fondo extends ComponentesJuego {
 	private boolean abajo = false;
 	private boolean derecha = false;
 	private boolean izquierda = false;
-	private boolean limite = false;
-	private EfectosMusica m1;
-	private EfectosMusica m2;
+	private boolean clear = false;
+	private EfectosMusica musica;
+	private parser inicio;
 
 	public Fondo(int x, int y, String imagen, int velocidad, Stage ventana) {
 		super(x, y, imagen, velocidad);
@@ -50,9 +53,11 @@ public class Fondo extends ComponentesJuego {
 		this.izquierdaImg = new Image("/fes/aragon/recursos/izquierda.png");
 		this.arribaImg = new Image("/fes/aragon/recursos/arriba.png");
 		this.abajoImg = new Image("/fes/aragon/recursos/abajo.png");
-		this.chile = new Image("/fes/aragon/recursos/chile.jpeg");
+		this.manzana = new Image("/fes/aragon/recursos/manzana.png");
 		this.imagen = derechaImg;
 		this.ventana = ventana;
+		this.accionBotonRun();
+		this.actionBotonClear();
 	}
 
 	@Override
@@ -70,53 +75,19 @@ public class Fondo extends ComponentesJuego {
 		}
 		graficos.drawImage(imagen, x, y, ancho, alto);
 		graficos.strokeRect(x, y, ancho, alto);
-		if (!comandos.isEmpty()) {
-
+		if (!comandos.isEmpty() && !clear) {
 			graficos.strokeText(comandos.get(indice), 100, 40);
+		}else {
+			graficos.strokeText("", 100, 40);
 		}
-		graficos.drawImage(chile, (55 + (ancho + 10) * randomX), (55 + (ancho + 10) * randomY), 40, 40);
-		/*
-		 * graficos.drawImage(imagen, (x+(ancho+10)*2), y,ancho,alto);
-		 * graficos.strokeRect((x+(ancho+10)*2), y, ancho, alto);
-		 * 
-		 * graficos.drawImage(imagen, x, (y+(alto+10)*2),ancho,alto);
-		 * graficos.strokeRect(x, (y+(alto+10)*2), ancho, alto);
-		 * 
-		 * graficos.drawImage(imagen, (x+(ancho+10)*2), (y+(alto+10)*2),ancho,alto);
-		 * graficos.strokeRect((x+(ancho+10)*2), (y+(alto+10)*2), ancho, alto);
-		 */
+		graficos.drawImage(manzana, (55 + (ancho + 10) * randomX), (55 + (ancho + 10) * randomY), 40, 40);
 	}
 
 	@Override
-	public void teclado(KeyEvent evento, boolean presiona) {
-		if (presiona) {
-			switch (evento.getCode().toString()) {
-			case "A":
-				Principal compilador = new Principal();
-				compilador.main(null);
-				try {
-					this.abrirArchivo();
-					graficos.clearRect(0, 0, 600, 600);
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				break;
-			case "R":
-				iniciar();
-				this.ejecutar();
-				this.iniciar = true;
-				graficos.clearRect(0, 0, 600, 600);
-				break;
-			}
-		}
-	}
+	public void teclado(KeyEvent evento, boolean presiona) {}
 
 	@Override
-	public void raton(KeyEvent evento) {
-
-	}
+	public void raton(KeyEvent evento) {}
 
 	@Override
 	public void logicaCalculos() {
@@ -150,27 +121,23 @@ public class Fondo extends ComponentesJuego {
 
 			case "mover":
 				if (arriba) {
-					System.out.println(y);
-					if (y == 55) {
+					if (y < 55) {
 						JOptionPane.showMessageDialog(null, "Error, limite maximo arriba");
-						indice++;
-						this.ejecutar();
+						iniciar();
+						graficos.clearRect(0, 0, 600, 600);
 					} else if (y > yy) {
 						y -= velocidad;
 						graficos.clearRect(0, 0, 600, 600);
-
 					} else {
 						indice++;
 						this.ejecutar();
-
 					}
-
 				}
 				if (abajo) {
-					if (y == 505) {
+					if (y > 505) {
 						JOptionPane.showMessageDialog(null, "Error, limite maximo abajo");
-						indice++;
-						this.ejecutar();
+						iniciar();
+						graficos.clearRect(0, 0, 600, 600);
 					} else if (y < yy) {
 						y += velocidad;
 						graficos.clearRect(0, 0, 600, 600);
@@ -180,10 +147,10 @@ public class Fondo extends ComponentesJuego {
 					}
 				}
 				if (izquierda) {
-					if (x == 55) {
+					if (x < 55) {
 						JOptionPane.showMessageDialog(null, "Error, limite maximo izquierda");
-						indice++;
-						this.ejecutar();
+						iniciar();
+						graficos.clearRect(0, 0, 600, 600);
 					} else if (x > xx) {
 						x -= velocidad;
 						graficos.clearRect(0, 0, 600, 600);
@@ -193,10 +160,10 @@ public class Fondo extends ComponentesJuego {
 					}
 				}
 				if (derecha) {
-					if (x == 505) {
+					if (x > 505) {
 						JOptionPane.showMessageDialog(null, "Error, limite maximo derecha");
-						indice++;
-						this.ejecutar();
+						iniciar();
+						graficos.clearRect(0, 0, 600, 600);
 					} else if (x < xx) {
 						x += velocidad;
 						graficos.clearRect(0, 0, 600, 600);
@@ -210,11 +177,9 @@ public class Fondo extends ComponentesJuego {
 	}
 
 	private void ejecutar() {
-		System.out.println(comandos.size());
 		if (indice < comandos.size()) {
 			String string = comandos.get(indice);
 			String[] datos = string.split(" ");
-			System.out.println(datos[0]);
 			switch (datos[0]) {
 			case "arriba":
 				this.arriba = true;
@@ -277,16 +242,26 @@ public class Fondo extends ComponentesJuego {
 				if (derecha) {
 					xx = (x + (ancho + 10) * moverCuadros);
 				}
+				// mover derecha si no se indica ninguna direccion
+				if (!arriba && !abajo && !izquierda && !derecha) {
+					xx = (x + (ancho + 10) * moverCuadros);
+					this.arriba = false;
+					this.abajo = false;
+					this.izquierda = false;
+					this.derecha = true;
+					this.imagen = this.derechaImg;
+					this.comando = "derecha";
+				}
 				this.comando = "mover";
 				break;
 			case "ver":
-				if (xx != (55 + (ancho + 10) * randomX) && yy != (55 + (ancho + 10) * randomY)) {
+				if (xx == (55 + (ancho + 10) * randomX) && yy == (55 + (ancho + 10) * randomY)) {
+					musica = new EfectosMusica("victoria");
+					musica.run();
+				} else {
 					while (!comandos.get(indice).equals("}")) {
 						indice++;
 					}
-				} else {
-					m1 = new EfectosMusica("musica_entrada");
-					m1.run();
 				}
 			default:
 				indice++;
@@ -295,7 +270,6 @@ public class Fondo extends ComponentesJuego {
 			}
 
 		} else {
-			System.out.println("limite");
 			this.iniciar = false;
 			indice = 1;
 		}
@@ -322,6 +296,45 @@ public class Fondo extends ComponentesJuego {
 		}
 
 	}
+	
+	private void accionBotonRun() {
+		Main.getButonRun().setOnAction(a -> {
+			inicio = new parser();
+			try {
+				inicio.cargar(new ByteArrayInputStream(Main.textArea.getText().getBytes(StandardCharsets.UTF_8)));
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			if (inicio.valido) {
+				try {
+					this.abrirArchivo();
+					graficos.clearRect(0, 0, 600, 600);
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				iniciar();
+				this.ejecutar();
+				this.iniciar = true;
+				graficos.clearRect(0, 0, 600, 600);
+			}else {
+				JOptionPane.showMessageDialog(null,inicio.textError);
+				inicio.valido = true;
+				inicio.textError = "";
+			}
+		});
+		
+	}
+	
+	private void actionBotonClear() {
+		Main.getButonClear().setOnAction(a ->{
+			Main.textArea.clear();
+			iniciar();
+			graficos.clearRect(0, 0, 600, 600);
+			clear = true;
+		});
+	}
 
 	private void iniciar() {
 		x = 55;
@@ -336,5 +349,6 @@ public class Fondo extends ComponentesJuego {
 		abajo = false;
 		derecha = false;
 		izquierda = false;
+		clear = false;
 	}
 }

@@ -1,5 +1,0 @@
-coloca 4 4;
-ver fruta {
-abajo;
-mover 2;
-}
